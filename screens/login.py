@@ -1,66 +1,106 @@
 import customtkinter as ctk
+from tkinter import messagebox
 
-ctk.set_appearance_mode("dark")
+
+ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
+
+
+def login():
+
+    username = username_entry.get()
+    password = password_entry.get()
+
+    if username == "admin" and password == "1234":
+        messagebox.showinfo("Success", "Login Successful!")
+
+        app.destroy()
+
+        from screens.dashboard import run_dashboard
+        run_dashboard()
+
+    else:
+        messagebox.showerror("Error", "Invalid Username or Password")
+
 
 app = ctk.CTk()
 
 app.title("ITECH AI Teacher")
+app.geometry("500x650")
+app.resizable(False, False)
 
-app.geometry("1100x700")
+# ---------------- Title ----------------
 
 title = ctk.CTkLabel(
     app,
-    text="ITECH AI Teacher",
-    font=("Arial",32,"bold")
+    text="🤖 ITECH AI Teacher",
+    font=("Segoe UI", 28, "bold")
 )
 
-title.pack(pady=40)
+title.pack(pady=(40,10))
 
 subtitle = ctk.CTkLabel(
     app,
-    text="AI Powered Learning Platform",
-    font=("Arial",18)
+    text="Welcome to Enterprise Edition",
+    font=("Segoe UI",15)
 )
 
-subtitle.pack()
+subtitle.pack(pady=(0,30))
 
-language = ctk.CTkComboBox(
+# ---------------- Username ----------------
+
+username_entry = ctk.CTkEntry(
     app,
-    values=[
-        "বাংলা",
-        "Hindi",
-        "English"
-    ]
+    width=320,
+    height=45,
+    placeholder_text="Username"
 )
 
-language.pack(pady=25)
+username_entry.pack(pady=10)
 
-student = ctk.CTkButton(
+# ---------------- Password ----------------
+
+password_entry = ctk.CTkEntry(
     app,
-    text="Student Login",
-    width=300,
-    height=45
+    width=320,
+    height=45,
+    placeholder_text="Password",
+    show="*"
 )
 
-student.pack(pady=10)
+password_entry.pack(pady=10)
 
-teacher = ctk.CTkButton(
+# ---------------- Remember ----------------
+
+remember = ctk.CTkCheckBox(
     app,
-    text="Teacher Login",
-    width=300,
-    height=45
+    text="Remember Me"
 )
 
-teacher.pack(pady=10)
+remember.pack(anchor="w", padx=90, pady=10)
 
-admin = ctk.CTkButton(
+# ---------------- Login Button ----------------
+
+login_btn = ctk.CTkButton(
     app,
-    text="Admin Login",
-    width=300,
-    height=45
+    text="Login",
+    width=320,
+    height=45,
+    command=login
 )
 
-admin.pack(pady=10)
+login_btn.pack(pady=20)
 
-app.mainloop()
+# ---------------- Footer ----------------
+
+footer = ctk.CTkLabel(
+    app,
+    text="© 2026 ITECH Computer Education",
+    font=("Segoe UI",12)
+)
+
+footer.pack(side="bottom", pady=20)
+
+
+def run_login():
+    app.mainloop()

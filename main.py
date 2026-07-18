@@ -1,4 +1,4 @@
-from screens.dashboard import run_dashboard
+from screens.login import run_login
 
 if __name__ == "__main__":
-    run_dashboard()
+    run_login()
