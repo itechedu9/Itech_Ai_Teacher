@@ -1,79 +1,44 @@
 import customtkinter as ctk
 
-# ----------------------------
-# App Settings
-# ----------------------------
-ctk.set_appearance_mode("Dark")
-ctk.set_default_color_theme("blue")
+from components.sidebar import create_sidebar
+from components.topbar import create_topbar
+from components.dashboard_cards import create_cards
+from components.graph_panel import create_graph_panel
+from components.activity_panel import create_activity
+from components.ai_panel import create_ai_panel
 
-app = ctk.CTk()
 
-app.title("ITECH AI Teacher Enterprise")
+def run_dashboard():
 
-app.geometry("1400x800")
+    ctk.set_appearance_mode("Dark")
+    ctk.set_default_color_theme("blue")
 
-# ----------------------------
-# Left Sidebar
-# ----------------------------
+    app = ctk.CTk()
 
-sidebar = ctk.CTkFrame(app, width=250)
+    app.title("ITECH AI Teacher Enterprise")
+    app.geometry("1400x850")
 
-sidebar.pack(side="left", fill="y")
+    # Sidebar
+    create_sidebar(app)
 
-title = ctk.CTkLabel(
-    sidebar,
-    text="ITECH AI\nTeacher",
-    font=("Arial",28,"bold")
-)
+    # Main Area
+    main = ctk.CTkFrame(app)
+    main.pack(side="right", fill="both", expand=True)
 
-title.pack(pady=30)
+    # Topbar
+    create_topbar(main)
 
-menus = [
-    "🏠 Dashboard",
-    "👨‍🎓 Students",
-    "👨‍🏫 Teachers",
-    "🤖 AI Teacher",
-    "💼 Job Preparation",
-    "📚 Courses",
-    "📝 Exams",
-    "📊 Reports",
-    "⚙ Settings",
-    "🚪 Logout"
-]
+    # Dashboard Cards
+    create_cards(main)
 
-for item in menus:
+    # Graph
+    create_graph_panel(main)
 
-    btn = ctk.CTkButton(
-        sidebar,
-        text=item,
-        width=200,
-        height=40
-    )
+    # Bottom
+    bottom = ctk.CTkFrame(main, fg_color="transparent")
+    bottom.pack(fill="both", expand=True, padx=20, pady=10)
 
-    btn.pack(pady=6)
+    create_activity(bottom)
+    create_ai_panel(bottom)
 
-# ----------------------------
-# Main Area
-# ----------------------------
-
-main = ctk.CTkFrame(app)
-
-main.pack(side="right", expand=True, fill="both", padx=10, pady=10)
-
-heading = ctk.CTkLabel(
-    main,
-    text="Welcome to ITECH AI Teacher",
-    font=("Arial",30,"bold")
-)
-
-heading.pack(pady=40)
-
-info = ctk.CTkLabel(
-    main,
-    text="AI Powered Learning Platform",
-    font=("Arial",18)
-)
-
-info.pack()
-
-app.mainloop()
+    app.mainloop()
