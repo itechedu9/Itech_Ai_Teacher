@@ -1,3 +1,4 @@
+from screens.admission import open_admission
 import customtkinter as ctk
 
 def create_sidebar(parent):
@@ -53,6 +54,14 @@ def create_sidebar(parent):
         text="────────────",
         font=("Segoe UI", 14)
     ).pack(side="bottom", pady=(0, 10))
+
+    ctk.CTkButton(
+        sidebar,
+        text="📝 Student Admission",
+        height=45,
+        command=open_admission
+    ).pack(fill="x", padx=15, pady=5)
+
 
     logout = ctk.CTkButton(
         sidebar,

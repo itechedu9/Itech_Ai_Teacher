@@ -11,7 +11,11 @@ def login():
     username = username_entry.get()
     password = password_entry.get()
 
-    if username == "admin" and password == "1234":
+    from utils.auth import login as db_login
+
+    user = db_login(username, password)
+
+    if user:
         messagebox.showinfo("Success", "Login Successful!")
 
         app.destroy()
@@ -21,7 +25,6 @@ def login():
 
     else:
         messagebox.showerror("Error", "Invalid Username or Password")
-
 
 app = ctk.CTk()
 
